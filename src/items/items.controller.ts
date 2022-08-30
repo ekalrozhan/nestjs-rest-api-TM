@@ -9,29 +9,32 @@ export class ItemsController {
 
     }
     @Get()
-    async findAll() : Promise<Item[]> {
+     findAll() : Promise<Item[]> {
         return this.itemsService.findAll()
     }
 
     @Get(':id')
-    async findOne(@Param('id') id) : Promise<Item>{
+    findOne(@Param('id') id) : Promise<Item>{
         return this.itemsService.findOne(id)
     }
 
     @Post()
-    create(@Body() createItemDto: CreateItemDto): string{
-            return `Name: ${createItemDto.name} Desc: ${createItemDto.description}`
+    create(@Body() createItemDto: CreateItemDto): Promise<Item>{
+            return this.itemsService.create(createItemDto)
         }
 
     @Delete(':id')
-    delete(@Param('id') id ) : string{
-        return `Delete ${id}`
+    delete(@Param('id') id ) : Promise<Item>{
+        return this.itemsService.delete(id)
     }
 
     @Put(':id')
-    update(@Body() updateItemDto : CreateItemDto, @Param('id') id): string {
-        return `Updata ${id} - Name ${updateItemDto.name}`
+    update(@Body() updateItemDto : CreateItemDto, @Param('id') id): Promise<Item>
+     {
+        return this.itemsService.update(id, updateItemDto)
     }
+
+    
 
     
     
